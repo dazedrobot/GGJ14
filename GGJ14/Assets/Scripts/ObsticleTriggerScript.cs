@@ -49,7 +49,6 @@ public class ObsticleTriggerScript : MonoBehaviour
     {
         if (other.tag == "player") {
             PlayerControl pControl = other.gameObject.GetComponent ("PlayerControl") as PlayerControl;
-            Debug.Log (pControl.state);
 
             if (cctv && pControl.state == State.Disappear) {
                 rising = false;
