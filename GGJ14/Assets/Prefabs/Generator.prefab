@@ -41,7 +41,8 @@ MonoBehaviour:
   floorPrefab: {fileID: 100004, guid: 38b665de399b2d0478980dc5c3b2f350, type: 2}
   wallPrefab: {fileID: 100002, guid: 9be24efbc8d3d3049ad5285fc37e5d2f, type: 2}
   size: 40
-  level: {fileID: 4900000, guid: b1f33b068c07a8b4bb190c1504b2a3fd, type: 3}
+  level: {fileID: 0}
+  plane: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

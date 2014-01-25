@@ -20,32 +20,17 @@ public class MusicController : MonoBehaviour
             source.Stop();
             audioSources.Add(ac.name, source);
         }
-        playing = audioSources ["Denial"];
-        playing.Play ();
-        
-        StartCoroutine (testSwitch (2,"Anger"));
-        StartCoroutine (testSwitch (20,"Bargaining"));
-        StartCoroutine (testSwitch (40,"Depression"));
-        StartCoroutine (testSwitch (60,"Acceptance"));
     }
 
     public void SwitchTrack(string name)
     {
-        double timeSwitch = AudioSettings.dspTime + (playing.clip.length - playing.time);
-        audioSources[name].PlayScheduled(timeSwitch);
-        playing.SetScheduledEndTime (timeSwitch);
+        if (playing) {
+            double timeSwitch = AudioSettings.dspTime + (playing.clip.length - playing.time);
+            audioSources [name].PlayScheduled (timeSwitch);
+            playing.SetScheduledEndTime (timeSwitch);
+        } else {
+            audioSources [name].Play ();
+        }
         playing = audioSources [name];
-    }
-
-    IEnumerator testSwitch(float time, string name)
-    {
-        yield return new WaitForSeconds(time);
-        SwitchTrack (name);
-    }
-    
-    // Update is called once per frame
-    void Update ()
-    {
-        
     }
 }

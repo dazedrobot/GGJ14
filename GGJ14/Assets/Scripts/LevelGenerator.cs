@@ -10,17 +10,13 @@ public class LevelGenerator : MonoBehaviour
     public int size = 40;
     public TextAsset level;
     List<FloorDrop> floor;
-    public GameObject plane;
-    int planeSize;
 
-    void Awake ()
+    void Start ()
     {
-        //Debug.Log ("bit set {}".Format(BitIsSet(3, 1)));
         floor = new List<FloorDrop> ();
 
         if (level) {
             string[] levelSections = level.text.Split (',');
-            planeSize = levelSections.Length;
 
             bool first = true;
             foreach (string s in levelSections) {
@@ -42,8 +38,6 @@ public class LevelGenerator : MonoBehaviour
             }
         }
         StartCoroutine (StartDropDelayed ());
-        GameObject obj = GameObject.Instantiate (plane, new Vector3 ((3 * planeSize) / 2, -10, 0), Quaternion.identity) as GameObject;
-        obj.transform.localScale.Set (3 * planeSize, 1, 1);
     }
 
     void AddSection (GameObject prefab, int value)
@@ -84,6 +78,7 @@ public class LevelGenerator : MonoBehaviour
         if (floor.Count > 0)
             floor [floor.Count - 1].next = section;
         floor.Add (section);
+        section.transform.parent = transform;
     }
 
     IEnumerator StartDropDelayed ()
