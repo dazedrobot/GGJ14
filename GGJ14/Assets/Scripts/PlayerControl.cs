@@ -7,7 +7,8 @@ public class PlayerControl : MonoBehaviour
 	{
 		Idle,
 		Jump,
-		Smash,
+        Smash,
+        Smashing,
 		Pay,
 		Disappear
 	}
@@ -34,12 +35,18 @@ public class PlayerControl : MonoBehaviour
 	private bool grounded = false;			// Whether or not the player is grounded.
 	private Animator anim;					// Reference to the player's animator component.
 
+    
+    private Transform hammer;
+    private SpriteRenderer[] hammerSprites;
 
 	void Awake()
 	{
 		// Setting up references.
 		groundCheck = transform.Find("groundCheck");
 		//anim = GetComponent<Animator>();
+        
+        hammer = transform.Find ("Hammer");
+        hammerSprites = hammer.GetComponentsInChildren<SpriteRenderer> (true);
 	}
 
 
@@ -107,6 +114,7 @@ public class PlayerControl : MonoBehaviour
 			state = State.Idle;
             break;
         case State.Smash:
+            StartCoroutine(Smash());
             break;
         case State.Pay:
             break;
@@ -114,6 +122,25 @@ public class PlayerControl : MonoBehaviour
             break;
 		}
 	}
+    
+    public IEnumerator Smash()
+    {
+        state = State.Smashing;
+        hammer.collider2D.enabled = true;
+        SetSpritesVisible (hammerSprites, true);
+        yield return new WaitForSeconds(0.4f);
+        hammer.collider2D.enabled = false;
+        SetSpritesVisible (hammerSprites, false);
+        state = State.Idle;
+    }
+    
+    void SetSpritesVisible(SpriteRenderer[] sprites, bool visibility)
+    {
+        foreach (SpriteRenderer sr in sprites)
+        {
+            sr.enabled = visibility;
+        }
+    }
 	
 	
 	void Flip ()
