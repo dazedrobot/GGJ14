@@ -16,6 +16,5 @@ public class CCTVTrigger : MonoBehaviour {
     void OnTriggerEnter2D (Collider2D other){
         Transform oTScript = transform.parent.Find ("Trigger");
         oTScript.SendMessage ("RaiseWall");
-        Debug.Log ("rasing wall");
     }
 }

@@ -4,20 +4,20 @@ using System.Collections;
 public class ObsticleTriggerScript : MonoBehaviour
 {
 
-    bool armour;
+    public bool armour;
     bool pay;
     bool cctv;
-    bool jumpable;
     int jumpHeight;
     public bool rising = false;
-    bool smashed;
     bool paid;
     float speed = 4;
+    Transform centreTrans;
 
 
     // Use this for initialization
     void Start ()
     {
+        centreTrans = this.transform.parent.Find ("CentreCube");
         //Setup (false, true, true, false, 0);
         //SetPosition (1.5f);
     }
@@ -30,15 +30,14 @@ public class ObsticleTriggerScript : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-        if (!smashed) {
-            Transform centreTrans = this.transform.parent.Find ("CentreCube");
-
+        if (centreTrans) {
             if (rising && !paid) {
-                if (centreTrans.localPosition.y < 1.5) {
+                if (centreTrans.localPosition.y < (2-jumpHeight)) {
                     centreTrans.Translate (0, speed * Time.deltaTime, 0);
                 }
-            } else {
-                if (centreTrans.localPosition.y > -1.5) {
+            } 
+            else {
+                if (centreTrans.localPosition.y > -2) {
                     centreTrans.Translate (0, -speed * Time.deltaTime, 0);
                 }
     
@@ -50,7 +49,6 @@ public class ObsticleTriggerScript : MonoBehaviour
 
     void SetPosition (float n)
     {
-        Transform centreTrans = this.transform.parent.Find ("CentreCube");
         Vector3 upVec = new Vector3 (centreTrans.position.x, n, centreTrans.position.z);
         centreTrans.position = upVec;
     }
@@ -64,12 +62,6 @@ public class ObsticleTriggerScript : MonoBehaviour
 
             if (cctv && pControl.state == State.Disappear && !paid) {
                 rising = false;
-            }
-
-            if (!armour && pControl.state == State.Smashing) {
-                Transform centreTrans = this.transform.parent.Find ("CentreCube");
-                Destroy (centreTrans.gameObject);
-                smashed = true;
             }
 
             if (pay && pControl.state == State.Pay) {
@@ -92,7 +84,6 @@ public class ObsticleTriggerScript : MonoBehaviour
         cctv = CCTV;
         armour = Armour;
         pay = Pay;
-        jumpable = Jumpable;
         jumpHeight = JumpHeight;
 
         if (!CCTV) {
@@ -101,6 +92,11 @@ public class ObsticleTriggerScript : MonoBehaviour
         }
         if (!Pay) {
             Transform t = transform.parent.FindChild ("PaySlot");
+            t.gameObject.SetActive (false);
+        }
+
+        if (!Armour) {
+            Transform t = transform.parent.FindChild ("CentreCube").FindChild("Armour");
             t.gameObject.SetActive (false);
         }
     }
