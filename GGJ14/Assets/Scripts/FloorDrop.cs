@@ -15,6 +15,7 @@ public class FloorDrop : MonoBehaviour {
         yield return new WaitForSeconds (1);
         rigidbody2D.isKinematic = false;
         rigidbody2D.fixedAngle = false;
+        rigidbody2D.AddTorque (1000);
 
         if (next)
             next.TriggerDrop();
