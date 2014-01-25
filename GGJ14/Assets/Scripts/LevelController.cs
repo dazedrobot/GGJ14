@@ -7,9 +7,11 @@ public class LevelController : MonoBehaviour
     public GameObject playerPrefab;
     public TextAsset[] levelFiles;
     public string[] levelMusic;
+    public Color[] levelColors;
 
     public GameObject levelGenPrefab;
 
+    public Light tintingLight;
 
     GameObject player;
 
@@ -38,6 +40,7 @@ public class LevelController : MonoBehaviour
         
         levelGen.level = levelFiles[level];
         music.SwitchTrack (levelMusic [level]);
+        tintingLight.color = levelColors [level];
     }
     
     // Update is called once per frame

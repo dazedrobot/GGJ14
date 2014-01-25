@@ -46,8 +46,20 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 7c93e9c5c996048eb9e95007ea3a7ac7, type: 3}
   - {fileID: 4900000, guid: 4303de224b4454a2fbaa6f48032a3329, type: 3}
   - {fileID: 4900000, guid: b1f33b068c07a8b4bb190c1504b2a3fd, type: 3}
-  levelMusic: []
+  levelMusic:
+  - Denial
+  - Anger
+  - Bargaining
+  - Depression
+  - Acceptance
+  levelColors:
+  - {r: 0, g: 1, b: .296551704, a: 1}
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: .431795329, g: 0, b: .963235319, a: 1}
+  - {r: 0, g: .652231336, b: .867647052, a: 1}
+  - {r: .970588207, g: .702839732, b: 0, a: 1}
   levelGenPrefab: {fileID: 100000, guid: d9fe0869de0322d48b34427158c2bc77, type: 2}
+  tintingLight: {fileID: 0}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
