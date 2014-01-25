@@ -10,14 +10,13 @@ public class PlayerControl : MonoBehaviour
         Smash,
         Smashing,
 		Pay,
-		Disappear
+		Disappear,
+        Faded
 	}
 
 	[HideInInspector]
 	public bool facingRight = true;			// For determining which way the player is currently facing.
-    [HideInInspector]
-    public bool jump = false;               // Condition for whether the player should jump.
-    [HideInInspector]
+
     public State state = State.Idle;               // State of the player.
 
 
@@ -38,6 +37,10 @@ public class PlayerControl : MonoBehaviour
     
     private Transform hammer;
     private SpriteRenderer[] hammerSprites;
+    
+    private SpriteRenderer coin;
+
+    private SpriteRenderer[] allSprites;
 
 	void Awake()
 	{
@@ -47,6 +50,9 @@ public class PlayerControl : MonoBehaviour
         
         hammer = transform.Find ("Hammer");
         hammerSprites = hammer.GetComponentsInChildren<SpriteRenderer> (true);
+        allSprites = transform.GetComponentsInChildren<SpriteRenderer> (true);
+
+        coin = transform.Find ("Coin").GetComponent<SpriteRenderer>();
 	}
 
 
@@ -63,9 +69,28 @@ public class PlayerControl : MonoBehaviour
             if(Input.GetButtonDown("Smash"))
                 state = State.Smash;
             if(Input.GetButtonDown("Pay"))
+            {
                 state = State.Pay;
+                coin.enabled = true;
+            }
             if(Input.GetButtonDown("Disappear"))
+            {
                 state = State.Disappear;
+                SetSpritesOpacity(allSprites,0.3f);
+            }
+        }
+
+        
+        if (state == State.Pay && Input.GetButtonUp ("Pay"))
+        {
+            state = State.Idle;
+            coin.enabled = false;
+        }
+
+        if (state == State.Disappear && Input.GetButtonUp ("Disappear"))
+        {
+            state = State.Idle;
+            SetSpritesOpacity(allSprites,1);
         }
 	}
 
@@ -118,8 +143,6 @@ public class PlayerControl : MonoBehaviour
             break;
         case State.Pay:
             break;
-        case State.Disappear:
-            break;
 		}
 	}
     
@@ -141,6 +164,17 @@ public class PlayerControl : MonoBehaviour
             sr.enabled = visibility;
         }
     }
+    
+    void SetSpritesOpacity(SpriteRenderer[] sprites, float opacity)
+    {
+        foreach (SpriteRenderer sr in sprites)
+        {
+            Color current = sr.material.color;
+            current.a = opacity;
+            sr.material.color = current;
+        }
+    }
+
 	
 	
 	void Flip ()
