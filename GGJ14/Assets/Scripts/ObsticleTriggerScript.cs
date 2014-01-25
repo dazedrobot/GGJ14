@@ -4,7 +4,7 @@ using System.Collections;
 public class ObsticleTriggerScript : MonoBehaviour
 {
 
-    bool armour;
+    public bool armour;
     bool pay;
     bool cctv;
     bool jumpable;
@@ -14,6 +14,7 @@ public class ObsticleTriggerScript : MonoBehaviour
     bool paid;
     float speed = 4;
     Transform centreTrans;
+    int maxHeight;
 
 
     // Use this for initialization
@@ -32,14 +33,16 @@ public class ObsticleTriggerScript : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-        if (!smashed) {
-
-
+        if (!smashed && centreTrans) {
             if (rising && !paid) {
-                if (centreTrans.localPosition.y < 2) {
+                if(jumpHeight != 0){
+                    Debug.Log("");
+                }
+                if (centreTrans.localPosition.y < (2-jumpHeight)) {
                     centreTrans.Translate (0, speed * Time.deltaTime, 0);
                 }
-            } else {
+            } 
+            else {
                 if (centreTrans.localPosition.y > -2) {
                     centreTrans.Translate (0, -speed * Time.deltaTime, 0);
                 }

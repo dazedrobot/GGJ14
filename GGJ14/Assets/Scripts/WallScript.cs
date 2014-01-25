@@ -14,7 +14,8 @@ public class WallScript : MonoBehaviour {
 	}
 
     void OnTriggerEnter2D(Collider2D other){
-        if (other.tag == "Hammer") {
+        Debug.Log ("has been hit");
+        if (other.tag == "Hammer" && !transform.parent.GetComponentInChildren<ObsticleTriggerScript>().armour) {     
             Destroy(this.gameObject);
         }
     }
