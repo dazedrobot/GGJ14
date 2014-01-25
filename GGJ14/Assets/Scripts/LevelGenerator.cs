@@ -18,8 +18,13 @@ public class LevelGenerator : MonoBehaviour
         if (level) {
             string[] levelSections = level.text.Split (',');
 
+            bool first = true;
             foreach (string s in levelSections)
             {
+                if (!first)
+                    AddSection(floorPrefab);
+                else
+                    first = false;
                 if (s == "0")
                 {
                     AddSection(floorPrefab);
@@ -27,7 +32,6 @@ public class LevelGenerator : MonoBehaviour
                 else
                 {
                     AddSection (wallPrefab);
-                    Debug.Log("add wall");
                 }
             }
         } else {
