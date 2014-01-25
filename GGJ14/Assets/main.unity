@@ -241,6 +241,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: d9fe0869de0322d48b34427158c2bc77, type: 2}
+      propertyPath: plane
+      value: 
+      objectReference: {fileID: 100000, guid: e13dfd347c42eb8418d45150e984a558, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d9fe0869de0322d48b34427158c2bc77, type: 2}
   m_RootGameObject: {fileID: 807879487}
@@ -432,6 +436,7 @@ MonoBehaviour:
   wallPrefab: {fileID: 100002, guid: 9be24efbc8d3d3049ad5285fc37e5d2f, type: 2}
   size: 40
   level: {fileID: 4900000, guid: b1f33b068c07a8b4bb190c1504b2a3fd, type: 3}
+  plane: {fileID: 100000, guid: e13dfd347c42eb8418d45150e984a558, type: 2}
 --- !u!4 &807879489
 Transform:
   m_ObjectHideFlags: 0

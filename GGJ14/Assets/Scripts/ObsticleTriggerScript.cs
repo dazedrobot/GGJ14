@@ -9,33 +9,43 @@ public class ObsticleTriggerScript : MonoBehaviour
     bool cctv;
     bool jumpable;
     int jumpHeight;
-    public GameObject cctvCamera;
-    bool rising = true;
+    public bool rising = false;
     bool smashed;
+    bool paid;
+    float speed = 4;
+
 
     // Use this for initialization
     void Start ()
     {
-        Setup (false, true, true, false, 0);
+        //Setup (false, true, true, false, 0);
         //SetPosition (1.5f);
     }
-    
+
+    void RaiseWall ()
+    {
+        rising = true;
+
+    }
     // Update is called once per frame
     void Update ()
     {
         if (!smashed) {
             Transform centreTrans = this.transform.parent.Find ("CentreCube");
-            if (rising) {
+
+            if (rising && !paid) {
                 if (centreTrans.localPosition.y < 1.5) {
-                    centreTrans.Translate (0, 1 * Time.deltaTime, 0);
+                    centreTrans.Translate (0, speed * Time.deltaTime, 0);
                 }
             } else {
                 if (centreTrans.localPosition.y > -1.5) {
-                    centreTrans.Translate (0, -1 * Time.deltaTime, 0);
+                    centreTrans.Translate (0, -speed * Time.deltaTime, 0);
                 }
     
             }
+
         }
+
     }
 
     void SetPosition (float n)
@@ -50,7 +60,9 @@ public class ObsticleTriggerScript : MonoBehaviour
         if (other.tag == "player") {
             PlayerControl pControl = other.gameObject.GetComponent ("PlayerControl") as PlayerControl;
 
-            if (cctv && pControl.state == State.Disappear) {
+
+
+            if (cctv && pControl.state == State.Disappear && !paid) {
                 rising = false;
             }
 
@@ -61,22 +73,21 @@ public class ObsticleTriggerScript : MonoBehaviour
             }
 
             if (pay && pControl.state == State.Pay) {
+                paid = true;
                 rising = false;
                         
             }
 
-            if (cctv && pControl.state == State.Idle) {
-                rising = true;
-            }
         }
     }
 
     void OnTriggerExit2D (Collider2D other)
     {
-        rising = true;
+        if (!paid)
+            rising = true;
     }
 
-    void Setup (bool Armour, bool Pay, bool CCTV, bool Jumpable, int JumpHeight)
+    public void Setup (bool Armour, bool Pay, bool CCTV, bool Jumpable, int JumpHeight)
     {
         cctv = CCTV;
         armour = Armour;
