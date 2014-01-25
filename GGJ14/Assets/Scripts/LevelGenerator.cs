@@ -81,6 +81,11 @@ public class LevelGenerator : MonoBehaviour
         section.transform.parent = transform;
     }
 
+    public void CleanUp()
+    {
+        transform.localPosition = Vector3.up * -200;
+    }
+
     IEnumerator StartDropDelayed ()
     {
         yield return new WaitForSeconds (4);

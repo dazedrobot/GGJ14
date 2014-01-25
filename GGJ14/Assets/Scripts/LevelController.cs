@@ -17,7 +17,7 @@ public class LevelController : MonoBehaviour
 
     int currentLevel = 0;
 
-    GameObject currentLevelGeneratorGO;
+    LevelGenerator currentLevelGenerator;
 
     MusicController music;
 
@@ -35,10 +35,10 @@ public class LevelController : MonoBehaviour
 
     void StartLevel(int level)
     {
-        currentLevelGeneratorGO = Instantiate (levelGenPrefab) as GameObject;
-        LevelGenerator levelGen = currentLevelGeneratorGO.GetComponent<LevelGenerator> ();
+        GameObject LevelGeneratorGO = Instantiate (levelGenPrefab) as GameObject;
+        currentLevelGenerator = LevelGeneratorGO.GetComponent<LevelGenerator> ();
         
-        levelGen.level = levelFiles[level];
+        currentLevelGenerator.level = levelFiles[level];
         music.SwitchTrack (levelMusic [level]);
         tintingLight.color = levelColors [level];
     }
@@ -47,9 +47,10 @@ public class LevelController : MonoBehaviour
     void Update ()
     {
         if (player.transform.localPosition.y < -5) {
-            Destroy( currentLevelGeneratorGO);
+
             if (currentLevel < levelFiles.Length)
             {
+                currentLevelGenerator.CleanUp();
                 StartLevel(currentLevel++);
                 player.transform.localPosition = Vector3.up * 2;
             }
