@@ -3,10 +3,21 @@ using System.Collections;
 
 public class PlayerControl : MonoBehaviour
 {
+	public enum State
+	{
+		Idle,
+		Jump,
+		Smash,
+		Pay,
+		Disappear
+	}
+
 	[HideInInspector]
 	public bool facingRight = true;			// For determining which way the player is currently facing.
-	[HideInInspector]
-	public bool jump = false;				// Condition for whether the player should jump.
+    [HideInInspector]
+    public bool jump = false;               // Condition for whether the player should jump.
+    [HideInInspector]
+    public State state = State.Idle;               // State of the player.
 
 
 	public float moveForce = 365f;			// Amount of force added to move the player left and right.
@@ -38,8 +49,17 @@ public class PlayerControl : MonoBehaviour
 		grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));  
 
 		// If the jump button is pressed and the player is grounded then the player should jump.
-		if(Input.GetButtonDown("Jump") && grounded)
-			jump = true;
+		if((state == State.Idle) && grounded)
+        {
+            if(Input.GetButtonDown("Jump"))
+                state = State.Jump;
+            if(Input.GetButtonDown("Smash"))
+                state = State.Smash;
+            if(Input.GetButtonDown("Pay"))
+                state = State.Pay;
+            if(Input.GetButtonDown("Disappear"))
+                state = State.Disappear;
+        }
 	}
 
 
@@ -70,21 +90,28 @@ public class PlayerControl : MonoBehaviour
 			// ... flip the player.
 			Flip();
 
-		// If the player should jump...
-		if(jump)
+		switch(state)
 		{
+        case State.Jump:
 			// Set the Jump animator trigger parameter.
 			//anim.SetTrigger("Jump");
 
 			// Play a random jump audio clip.
-			int i = Random.Range(0, jumpClips.Length);
+			//int i = Random.Range(0, jumpClips.Length);
 			//AudioSource.PlayClipAtPoint(jumpClips[i], transform.position);
 
 			// Add a vertical force to the player.
 			rigidbody2D.AddForce(new Vector2(0f, jumpForce));
 
 			// Make sure the player can't jump again until the jump conditions from Update are satisfied.
-			jump = false;
+			state = State.Idle;
+            break;
+        case State.Smash:
+            break;
+        case State.Pay:
+            break;
+        case State.Disappear:
+            break;
 		}
 	}
 	
