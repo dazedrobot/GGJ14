@@ -1,18 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+public enum State
+{
+	Idle,
+	Jump,
+	Smash,
+	Smashing,
+	Pay,
+	Disappear,
+	Faded
+}
+
+
 public class PlayerControl : MonoBehaviour
 {
-	public enum State
-	{
-		Idle,
-		Jump,
-        Smash,
-        Smashing,
-		Pay,
-		Disappear,
-        Faded
-	}
+
 
 	[HideInInspector]
 	public bool facingRight = true;			// For determining which way the player is currently facing.
