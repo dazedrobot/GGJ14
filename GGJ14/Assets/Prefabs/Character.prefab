@@ -126,6 +126,7 @@ GameObject:
   - 92: {fileID: 9200000}
   - 124: {fileID: 12400000}
   - 81: {fileID: 8100000}
+  - 114: {fileID: 11400002}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -339,6 +340,23 @@ MonoBehaviour:
   taunts: []
   tauntProbability: 50
   tauntDelay: 1
+--- !u!114 &11400002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a733095a319f8c4ca522c75251e4b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioLayers:
+  - {fileID: 8300000, guid: cd7bd47ac773dd542897c52ed4376263, type: 3}
+  - {fileID: 8300000, guid: 08ce0af120122a84e90bb84644d45775, type: 3}
+  - {fileID: 8300000, guid: 3f712cbd49a35a84abaaddc52f010715, type: 3}
+  - {fileID: 8300000, guid: 3f67f03fea870ba4bb1ebe24f1e85777, type: 3}
+  - {fileID: 8300000, guid: fdcac1340e5b56949a51eb39af002dd2, type: 3}
 --- !u!124 &12400000
 Behaviour:
   m_ObjectHideFlags: 1
