@@ -8,6 +8,7 @@ public class LevelController : MonoBehaviour
     public TextAsset[] levelFiles;
     public string[] levelMusic;
     public Color[] levelColors;
+    public int[] levelSkills;
 
     public GameObject levelGenPrefab;
 
@@ -22,7 +23,7 @@ public class LevelController : MonoBehaviour
     MusicController music;
 
     // Use this for initialization
-    void Awake ()
+    void Start ()
     {
         music = GetComponent<MusicController> ();
 
@@ -41,6 +42,14 @@ public class LevelController : MonoBehaviour
         currentLevelGenerator.level = levelFiles[level];
         music.SwitchTrack (levelMusic [level]);
         tintingLight.color = levelColors [level];
+
+        PlayerControl playerC = player.GetComponent<PlayerControl> ();
+
+        int skills = levelSkills [level];
+        playerC.canJump = Utility.BitIsSet (skills, 0);
+        playerC.canSmash = Utility.BitIsSet (skills, 1);
+        playerC.canPay = Utility.BitIsSet (skills, 2);
+        playerC.canDisappear = Utility.BitIsSet (skills, 3);
     }
     
     // Update is called once per frame

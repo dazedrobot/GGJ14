@@ -53,24 +53,19 @@ public class LevelGenerator : MonoBehaviour
 
             ObsticleTriggerScript obsticleScript = go.GetComponentInChildren<ObsticleTriggerScript> ();
 
-            if( BitIsSet (value, 0)){
+            if( Utility.BitIsSet (value, 0)){
                 jumpHeight = Random.Range(1,4);
             }
             else{
                 jumpHeight = 0;
             }
 
-            obsticleScript.Setup (!BitIsSet (value, 1), BitIsSet (value, 2), BitIsSet (value, 3), BitIsSet (value, 0), jumpHeight);
+            obsticleScript.Setup (!Utility.BitIsSet (value, 1), Utility.BitIsSet (value, 2), Utility.BitIsSet (value, 3), Utility.BitIsSet (value, 0), jumpHeight);
 
 
 
         }
 
-    }
-
-    bool BitIsSet (int val, int bit)
-    {
-        return (1 & (val >> bit)) == 1;
     }
 
     void AddSection (FloorDrop section)

@@ -28,12 +28,13 @@ public class PlayerControl : MonoBehaviour
 	public float maxSpeed = 5f;				// The fastest the player can travel in the x axis.
 	public AudioClip[] jumpClips;			// Array of clips for when the player jumps.
 	public float jumpForce = 1000f;			// Amount of force added when the player jumps.
-	public AudioClip[] taunts;				// Array of clips for when the player taunts.
-	public float tauntProbability = 50f;	// Chance of a taunt happening.
-	public float tauntDelay = 1f;			// Delay for when the taunt should happen.
 
+    
+    public bool canJump = true;
+    public bool canSmash = true;
+    public bool canPay = true;
+    public bool canDisappear = true;
 
-	private int tauntIndex;					// The index of the taunts array indicating the most recent taunt.
 	private Transform groundCheck;			// A position marking where to check if the player is grounded.
 	private bool grounded = false;			// Whether or not the player is grounded.
 	private Animator anim;					// Reference to the player's animator component.
@@ -68,16 +69,16 @@ public class PlayerControl : MonoBehaviour
 		// If the jump button is pressed and the player is grounded then the player should jump.
 		if((state == State.Idle) && grounded)
         {
-            if(Input.GetButtonDown("Jump"))
+            if(Input.GetButtonDown("Jump") && canJump)
                 state = State.Jump;
-            if(Input.GetButtonDown("Smash"))
+            if(Input.GetButtonDown("Smash") && canSmash)
                 state = State.Smash;
-            if(Input.GetButtonDown("Pay"))
+            if(Input.GetButtonDown("Pay") && canPay)
             {
                 state = State.Pay;
                 coin.enabled = true;
             }
-            if(Input.GetButtonDown("Disappear"))
+            if(Input.GetButtonDown("Disappear") && canDisappear)
             {
                 state = State.Disappear;
                 SetSpritesOpacity(allSprites,0.3f);
@@ -190,43 +191,5 @@ public class PlayerControl : MonoBehaviour
 		Vector3 theScale = transform.localScale;
 		theScale.x *= -1;
 		transform.localScale = theScale;
-	}
-
-
-	public IEnumerator Taunt()
-	{
-		// Check the random chance of taunting.
-		float tauntChance = Random.Range(0f, 100f);
-		if(tauntChance > tauntProbability)
-		{
-			// Wait for tauntDelay number of seconds.
-			yield return new WaitForSeconds(tauntDelay);
-
-			// If there is no clip currently playing.
-			if(!audio.isPlaying)
-			{
-				// Choose a random, but different taunt.
-				tauntIndex = TauntRandom();
-
-				// Play the new taunt.
-				audio.clip = taunts[tauntIndex];
-				audio.Play();
-			}
-		}
-	}
-
-
-	int TauntRandom()
-	{
-		// Choose a random index of the taunts array.
-		int i = Random.Range(0, taunts.Length);
-
-		// If it's the same as the previous taunt...
-		if(i == tauntIndex)
-			// ... try another random taunt.
-			return TauntRandom();
-		else
-			// Otherwise return this index.
-			return i;
 	}
 }
