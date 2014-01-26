@@ -193,7 +193,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 3
   m_Type: 1
-  m_Color: {r: 1, g: .832758605, b: .286764681, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: .5
   m_Range: 10
   m_SpotAngle: 30
@@ -243,7 +243,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7b2fa2f6368de446884d16f68144842c, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -.0891420841
+      value: -.899999976
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7b2fa2f6368de446884d16f68144842c, type: 2}
       propertyPath: m_LocalPosition.z
@@ -267,7 +267,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7b2fa2f6368de446884d16f68144842c, type: 2}
       propertyPath: m_LocalScale.y
-      value: 3.20000005
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7b2fa2f6368de446884d16f68144842c, type: 2}
       propertyPath: m_LocalScale.x
@@ -325,8 +325,8 @@ Transform:
   m_PrefabInternal: {fileID: 1396161473}
   m_GameObject: {fileID: 2000971122}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -.0891420841, z: 11}
-  m_LocalScale: {x: 6, y: 3.20000005, z: 1}
+  m_LocalPosition: {x: 0, y: -.899999976, z: 11}
+  m_LocalScale: {x: 6, y: 4, z: 1}
   m_Children: []
   m_Father: {fileID: 435442125}
 --- !u!1 &2009827289
@@ -359,6 +359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 100012, guid: 673e31ac50a6be7448a2189bc6685aff, type: 2}
+  colourPlayerPrefab: {fileID: 100012, guid: da62773e11add468e823634dcca5cb82, type: 2}
   levelFiles:
   - {fileID: 4900000, guid: 265b189c862694ec09062f10577df151, type: 3}
   - {fileID: 4900000, guid: a22c8401fc4894e439bf2813dd056fbc, type: 3}
@@ -372,11 +373,11 @@ MonoBehaviour:
   - Depression
   - Acceptance
   levelColors:
-  - {r: 0, g: 1, b: .296551704, a: 1}
+  - {r: .382569194, g: .852941155, b: .794550061, a: 1}
   - {r: 1, g: 0, b: 0, a: 1}
-  - {r: .431795329, g: 0, b: .963235319, a: 1}
-  - {r: 0, g: .652231336, b: .867647052, a: 1}
-  - {r: .970588207, g: .702839732, b: 0, a: 1}
+  - {r: 0, g: .963235319, b: .205933005, a: 1}
+  - {r: .167874113, g: .412461936, b: .992647052, a: 1}
+  - {r: 1, g: .889655113, b: 0, a: 1}
   levelSkills: 010000000200000004000000080000000f000000
   levelGenPrefab: {fileID: 100000, guid: d9fe0869de0322d48b34427158c2bc77, type: 2}
   tintingLight: {fileID: 863448167}
@@ -448,6 +449,62 @@ Prefab:
       propertyPath: tintingLight
       value: 
       objectReference: {fileID: 863448167}
+    - target: {fileID: 11400000, guid: d485cd813ada59f46a4c18c723022539, type: 2}
+      propertyPath: levelColors.Array.data[0].g
+      value: .852941155
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: d485cd813ada59f46a4c18c723022539, type: 2}
+      propertyPath: levelColors.Array.data[0].b
+      value: .794550061
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: d485cd813ada59f46a4c18c723022539, type: 2}
+      propertyPath: levelColors.Array.data[0].r
+      value: .382569194
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: d485cd813ada59f46a4c18c723022539, type: 2}
+      propertyPath: levelColors.Array.data[2].r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: d485cd813ada59f46a4c18c723022539, type: 2}
+      propertyPath: levelColors.Array.data[2].g
+      value: .963235319
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: d485cd813ada59f46a4c18c723022539, type: 2}
+      propertyPath: levelColors.Array.data[2].b
+      value: .205933005
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: d485cd813ada59f46a4c18c723022539, type: 2}
+      propertyPath: levelColors.Array.data[3].r
+      value: .167874113
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: d485cd813ada59f46a4c18c723022539, type: 2}
+      propertyPath: levelColors.Array.data[3].g
+      value: .412461936
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: d485cd813ada59f46a4c18c723022539, type: 2}
+      propertyPath: levelColors.Array.data[3].b
+      value: .992647052
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: d485cd813ada59f46a4c18c723022539, type: 2}
+      propertyPath: levelColors.Array.data[4].g
+      value: .889655113
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: d485cd813ada59f46a4c18c723022539, type: 2}
+      propertyPath: levelColors.Array.data[4].b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: d485cd813ada59f46a4c18c723022539, type: 2}
+      propertyPath: levelColors.Array.data[4].r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: d485cd813ada59f46a4c18c723022539, type: 2}
+      propertyPath: levelColors.Array.data[4].a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: d485cd813ada59f46a4c18c723022539, type: 2}
+      propertyPath: colourPlayerPrefab
+      value: 
+      objectReference: {fileID: 100012, guid: da62773e11add468e823634dcca5cb82, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d485cd813ada59f46a4c18c723022539, type: 2}
   m_RootGameObject: {fileID: 2009827289}

@@ -5,6 +5,8 @@ public class LevelController : MonoBehaviour
 {
 
     public GameObject playerPrefab;
+	public GameObject colourPlayerPrefab;
+
     public TextAsset[] levelFiles;
     public string[] levelMusic;
     public Color[] levelColors;
@@ -64,7 +66,14 @@ public class LevelController : MonoBehaviour
             {
                 currentLevelGenerator.CleanUp();
                 StartLevel(currentLevel++);
-                player.transform.localPosition = Vector3.up * 2;
+				Vector3 oldPos = player.transform.position;
+				if(currentLevel == 5){
+					Destroy(player);
+					player = Instantiate(colourPlayerPrefab, Vector3.up * 2, Quaternion.identity) as GameObject;
+				}
+				else{
+                	player.transform.localPosition = Vector3.up * 2;
+				}
 				ResetInstructions();
             }
             else

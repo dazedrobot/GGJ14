@@ -197,17 +197,20 @@ public class PlayerControl : MonoBehaviour
 
     void OnGUI ()
     {
+		GUI.color = Color.white;
+		GUIStyle instructionStyle = new GUIStyle ();
+		instructionStyle.fontSize = 24; 
         if (!stateChange) {
-            if (levelCount == 1)
-                GUI.Label (new Rect (Screen.width / 2, Screen.height / 2, 100, 100), "Press J to Jump");
+            if (levelCount == 0)
+                GUI.Label (new Rect (Screen.width * 0.4f, Screen.height * 0.25f, 200, 100), "Press J to Jump", instructionStyle);
             if (levelCount == 2)
-                GUI.Label (new Rect (Screen.width / 2, Screen.height / 2, 100, 100), "Press H to Smash");
+				GUI.Label (new Rect (Screen.width * 0.4f, Screen.height * 0.25f, 200, 100), "Press H to Smash", instructionStyle);
             if (levelCount == 3)
-                GUI.Label (new Rect (Screen.width / 2, Screen.height / 2, 100, 100), "Press K to Pay");
+				GUI.Label (new Rect (Screen.width * 0.4f, Screen.height * 0.25f, 200, 100), "Press K to Insert Coin", instructionStyle);
             if (levelCount == 4)
-                GUI.Label (new Rect (Screen.width / 2, Screen.height / 2, 100, 100), "Press L to become Invisible");
+				GUI.Label (new Rect (Screen.width * 0.4f, Screen.height * 0.25f, 200, 100), "Press L to Disappear", instructionStyle);
             if (levelCount == 5)
-                GUI.Label (new Rect (Screen.width / 2, Screen.height / 2, 200, 100), "Press J to Jump \nPress H to Smash \nPress L to become Invisible \nPress K to Pay ");
+				GUI.Label (new Rect (Screen.width * 0.4f, Screen.height * 0.15f, 200, 100), "Press J to Jump \nPress H to Smash \nPress K to Insert Coin \nPress L to Disappear", instructionStyle);
 
         
         }
