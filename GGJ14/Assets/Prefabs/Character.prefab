@@ -263,9 +263,13 @@ MonoBehaviour:
   maxSpeed: 5
   jumpClips: []
   jumpForce: 400
-  taunts: []
-  tauntProbability: 50
-  tauntDelay: 1
+  canJump: 1
+  canSmash: 1
+  canPay: 1
+  canDisappear: 1
+  canMove: 0
+  stateChange: 0
+  levelCount: 0
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -27,7 +27,7 @@ public class LevelController : MonoBehaviour
     {
         music = GetComponent<MusicController> ();
 
-        player = Instantiate (playerPrefab) as GameObject;
+        player = Instantiate (playerPrefab,new Vector3(5,3),Quaternion.identity) as GameObject;
 
         Camera.main.GetComponent<CameraFollow> ().target = player.transform;
 
@@ -52,6 +52,9 @@ public class LevelController : MonoBehaviour
         playerC.canDisappear = Utility.BitIsSet (skills, 3);
     }
     
+	void ResetInstructions(){
+		GameObject.FindGameObjectWithTag ("player").SendMessage ("Reset", currentLevel);
+	}
     // Update is called once per frame
     void Update ()
     {
@@ -62,6 +65,7 @@ public class LevelController : MonoBehaviour
                 currentLevelGenerator.CleanUp();
                 StartLevel(currentLevel++);
                 player.transform.localPosition = Vector3.up * 2;
+				ResetInstructions();
             }
             else
             {
