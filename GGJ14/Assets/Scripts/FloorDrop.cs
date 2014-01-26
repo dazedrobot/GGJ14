@@ -5,7 +5,7 @@ public class FloorDrop : MonoBehaviour {
 
     public FloorDrop next;
 
-    private float delay = 1f;
+    private float delay = 0.5f;
 
     public void TriggerDrop()
     {
