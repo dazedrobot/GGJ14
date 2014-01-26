@@ -4,11 +4,15 @@ using System.Collections;
 public class LevelController : MonoBehaviour
 {
 
+    public static LevelController instance;
+
     public GameObject playerPrefab;
     public TextAsset[] levelFiles;
     public string[] levelMusic;
     public Color[] levelColors;
     public int[] levelSkills;
+
+    public bool reachedEnd = false;
 
     public GameObject levelGenPrefab;
 
@@ -22,12 +26,16 @@ public class LevelController : MonoBehaviour
 
     MusicController music;
 
+    Vector3 playerStartPosition = new Vector3(0, 2);
+
     // Use this for initialization
     void Start ()
     {
+        instance = this;
+
         music = GetComponent<MusicController> ();
 
-        player = Instantiate (playerPrefab,new Vector3(5,3),Quaternion.identity) as GameObject;
+        player = Instantiate (playerPrefab, playerStartPosition, Quaternion.identity) as GameObject;
 
         Camera.main.GetComponent<CameraFollow> ().target = player.transform;
 
@@ -55,21 +63,30 @@ public class LevelController : MonoBehaviour
 	void ResetInstructions(){
 		GameObject.FindGameObjectWithTag ("player").SendMessage ("Reset", currentLevel);
 	}
+
     // Update is called once per frame
     void Update ()
     {
         if (player.transform.localPosition.y < -5) {
+            if (reachedEnd)
+            {
+                if (currentLevel < levelFiles.Length)
+                {
+                    currentLevelGenerator.CleanUp();
+                    StartLevel(currentLevel++);
+                    player.transform.localPosition = playerStartPosition;
+    				ResetInstructions();
 
-            if (currentLevel < levelFiles.Length)
-            {
-                currentLevelGenerator.CleanUp();
-                StartLevel(currentLevel++);
-                player.transform.localPosition = Vector3.up * 2;
-				ResetInstructions();
+                    reachedEnd = false;
+                }
+                else
+                {
+                    //win condition
+                }
             }
-            else
-            {
-                //win condition
+            else{
+                currentLevelGenerator.ResetLevel();
+                player.transform.localPosition = playerStartPosition;
             }
         }
     }

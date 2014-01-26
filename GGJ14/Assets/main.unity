@@ -378,6 +378,7 @@ MonoBehaviour:
   - {r: 0, g: .652231336, b: .867647052, a: 1}
   - {r: .970588207, g: .702839732, b: 0, a: 1}
   levelSkills: 010000000200000004000000080000000f000000
+  reachedEnd: 0
   levelGenPrefab: {fileID: 100000, guid: d9fe0869de0322d48b34427158c2bc77, type: 2}
   tintingLight: {fileID: 863448167}
 --- !u!4 &2009827291

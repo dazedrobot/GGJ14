@@ -29,11 +29,17 @@ public class Obsticle : MonoBehaviour
 
     }
 
+    void Reset()
+    {
+        Setup (armour, pay, cctv, jumpable);
+    }
+
     public void Setup (bool Armour, bool Pay, bool CCTV, bool Jumpable)
     {
         cctv = CCTV;
         armour = Armour;
         pay = Pay;
+        jumpable = Jumpable;
         wall.jumpHeight = Jumpable ? 0 : 2;
         if (CCTV)
             wall.targetHeight = -2;
