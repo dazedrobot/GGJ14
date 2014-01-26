@@ -42,10 +42,8 @@ public class PlayerControl : MonoBehaviour
     private SpriteRenderer[] hammerSprites;
     private SpriteRenderer coin;
     private SpriteRenderer[] allSprites;
-    public bool canMove = false;
     public bool stateChange = false;
     int levelCount = 0;
-    float waitTime = 5;
 
     void Awake ()
     {
@@ -59,20 +57,12 @@ public class PlayerControl : MonoBehaviour
 
         coin = transform.Find ("Coin").GetComponent<SpriteRenderer> ();
 
-        StartCoroutine (WaitFunction (waitTime));
-
-
     }
 
-    IEnumerator WaitFunction (float delay)
-    {
-        yield return new WaitForSeconds (delay);
-        canMove = true;
-    }
+
 
     void Update ()
     {
-        if (canMove) {
             // The player is grounded if a linecast to the groundcheck position hits anything on the ground layer.
             grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));  
 
@@ -107,12 +97,11 @@ public class PlayerControl : MonoBehaviour
                 stateChange = true;
                 
             }
-        }
+
     }
 
     void FixedUpdate ()
     {
-        if (canMove) {
             // Cache the horizontal input.
             float h = Input.GetAxis ("Horizontal");
             if(state == State.Disappear){
@@ -165,7 +154,7 @@ public class PlayerControl : MonoBehaviour
             case State.Pay:
                 break;
             }
-        }
+
     }
     
     public IEnumerator Smash ()
@@ -199,8 +188,6 @@ public class PlayerControl : MonoBehaviour
     {
         stateChange = false;
         levelCount = levelCounter;
-        canMove = false;
-        StartCoroutine(WaitFunction (waitTime));
     }
 
     void OnGUI ()
