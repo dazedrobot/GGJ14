@@ -65,6 +65,7 @@ public class LevelController : MonoBehaviour
                 currentLevelGenerator.CleanUp();
                 StartLevel(currentLevel++);
                 player.transform.localPosition = Vector3.up * 2;
+                player.transform.Translate(5,0,0);
 				ResetInstructions();
             }
             else
