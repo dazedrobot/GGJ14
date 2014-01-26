@@ -5,6 +5,8 @@ public class FloorDrop : MonoBehaviour {
 
     public FloorDrop next;
 
+    private float delay = 1f;
+
     public void TriggerDrop()
     {
         StartCoroutine (Drop ());
@@ -12,7 +14,7 @@ public class FloorDrop : MonoBehaviour {
 
     IEnumerator Drop()
     {
-        yield return new WaitForSeconds (1);
+        yield return new WaitForSeconds (delay);
         rigidbody2D.isKinematic = false;
         rigidbody2D.fixedAngle = false;
         rigidbody2D.AddTorque (1000);

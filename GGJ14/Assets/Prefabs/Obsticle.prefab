@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 61: {fileID: 6100000}
-  - 114: {fileID: 11400000}
+  - 114: {fileID: 11400008}
   m_Layer: 0
   m_Name: Trigger
   m_TagString: Untagged
@@ -30,6 +30,7 @@ GameObject:
   - 61: {fileID: 6100008}
   - 61: {fileID: 6100004}
   - 61: {fileID: 6100002}
+  - 114: {fileID: 11400000}
   m_Layer: 8
   m_Name: Obsticle
   m_TagString: Untagged
@@ -186,7 +187,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.7593231, y: 4.40508604, z: 0}
+  m_LocalPosition: {x: 7.78328419, y: -5.60812807, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400008}
@@ -261,8 +262,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100014}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.5, y: 1, z: 0}
-  m_LocalScale: {x: 10, y: 1, z: 1}
+  m_LocalPosition: {x: -4.49913406, y: .99999994, z: 0}
+  m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 400002}
 --- !u!4 &400016
@@ -373,14 +374,20 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
+  m_GameObject: {fileID: 100002}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9652972650509074e9e4f618625b2a4e, type: 3}
+  m_Script: {fileID: 11500000, guid: 1528a56dd30ecdb458b9e78350dc52d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wall: {fileID: 11400006}
+  cameraZone: {fileID: 6100010}
+  payZone: {fileID: 6100000}
   armour: 0
-  rising: 1
+  pay: 1
+  cctv: 1
+  jumpable: 1
+  rising: 0
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -404,6 +411,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65b81ac8ca1abd54b90e9f5d48938582, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wall: {fileID: 11400006}
 --- !u!114 &11400006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -415,6 +423,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35afdb651d91ff14da3ede1118a83465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpHeight: 0
+  targetHeight: 0
+  downOverride: 0
+--- !u!114 &11400008
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce7114324c67bd842b6649c46cebf54c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wall: {fileID: 11400006}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

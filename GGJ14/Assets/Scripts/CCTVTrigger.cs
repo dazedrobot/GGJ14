@@ -3,18 +3,22 @@ using System.Collections;
 
 public class CCTVTrigger : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public WallScript wall;
 
-    void OnTriggerEnter2D (Collider2D other){
-        Transform oTScript = transform.parent.Find ("Trigger");
-        oTScript.SendMessage ("RaiseWall");
+    void OnTriggerStay2D (Collider2D other){
+        if (other.tag == "player") {
+            PlayerControl player = other.GetComponent<PlayerControl>();
+            if (player.state == State.Disappear)
+            {
+                wall.targetHeight = -2;
+            }
+            else
+                wall.targetHeight = wall.jumpHeight;
+        }
+    }
+
+    void OnTriggerExit2D (Collider2D other)
+    {
+        wall.targetHeight = -2;
     }
 }

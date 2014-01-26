@@ -48,21 +48,9 @@ public class LevelGenerator : MonoBehaviour
 
         if (value > 0) {
 
-            int jumpHeight = 0;
+            Obsticle obsticleScript = go.GetComponent<Obsticle> ();
 
-
-            ObsticleTriggerScript obsticleScript = go.GetComponentInChildren<ObsticleTriggerScript> ();
-
-            if( Utility.BitIsSet (value, 0)){
-                jumpHeight = Random.Range(1,4);
-            }
-            else{
-                jumpHeight = 0;
-            }
-
-            obsticleScript.Setup (!Utility.BitIsSet (value, 1), Utility.BitIsSet (value, 2), Utility.BitIsSet (value, 3), Utility.BitIsSet (value, 0), jumpHeight);
-
-
+            obsticleScript.Setup (!Utility.BitIsSet (value, 1), Utility.BitIsSet (value, 2), Utility.BitIsSet (value, 3), Utility.BitIsSet (value, 0));
 
         }
 
