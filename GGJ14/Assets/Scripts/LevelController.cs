@@ -83,6 +83,7 @@ public class LevelController : MonoBehaviour
                 {
                     //win condition
                 }
+
             }
             else{
                 currentLevelGenerator.ResetLevel();

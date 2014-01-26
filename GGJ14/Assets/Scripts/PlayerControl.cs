@@ -42,9 +42,8 @@ public class PlayerControl : MonoBehaviour
     private SpriteRenderer[] hammerSprites;
     private SpriteRenderer coin;
     private SpriteRenderer[] allSprites;
-    public bool canMove = false;
     public bool stateChange = false;
-    public int levelCount = 1;
+    int levelCount = 0;
 
     void Awake ()
     {
@@ -58,21 +57,12 @@ public class PlayerControl : MonoBehaviour
 
         coin = transform.Find ("Coin").GetComponent<SpriteRenderer> ();
 
-        StartCoroutine (WaitFunction (2));
-
-
     }
 
-    IEnumerator WaitFunction (float delay)
-    {
 
-        yield return new WaitForSeconds (delay);
-        canMove = true;
-    }
 
     void Update ()
     {
-        if (canMove) {
             // The player is grounded if a linecast to the groundcheck position hits anything on the ground layer.
             grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));  
 
@@ -107,20 +97,25 @@ public class PlayerControl : MonoBehaviour
                 stateChange = true;
                 
             }
-        }
+
     }
 
     void FixedUpdate ()
     {
-        if (canMove) {
             // Cache the horizontal input.
             float h = Input.GetAxis ("Horizontal");
-
+            if(state == State.Disappear){
+                maxSpeed = 1f; 
+            }
+            else{
+                maxSpeed = 5f;
+            }
             // The Speed animator parameter is set to the absolute value of the horizontal input.
             //anim.SetFloat("Speed", Mathf.Abs(h));
 
             // If the player is changing direction (h has a different sign to velocity.x) or hasn't reached maxSpeed yet...
             if (h * rigidbody2D.velocity.x < maxSpeed)
+
             // ... add a force to the player.
                 rigidbody2D.AddForce (Vector2.right * h * moveForce);
 
@@ -159,7 +154,7 @@ public class PlayerControl : MonoBehaviour
             case State.Pay:
                 break;
             }
-        }
+
     }
     
     public IEnumerator Smash ()
@@ -198,7 +193,7 @@ public class PlayerControl : MonoBehaviour
     void OnGUI ()
     {
         if (!stateChange) {
-            if (levelCount == 1)
+            if (levelCount == 0)
                 GUI.Label (new Rect (Screen.width / 2, Screen.height / 2, 100, 100), "Press J to Jump");
             if (levelCount == 2)
                 GUI.Label (new Rect (Screen.width / 2, Screen.height / 2, 100, 100), "Press H to Smash");
