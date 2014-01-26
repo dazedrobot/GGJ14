@@ -42,6 +42,7 @@ MonoBehaviour:
   wallPrefab: {fileID: 100002, guid: 9be24efbc8d3d3049ad5285fc37e5d2f, type: 2}
   size: 40
   endTriggerPrefab: {fileID: 100000, guid: e1bb53490cd569b4490f4540eb705a1f, type: 2}
+  finalBloomPrefab: {fileID: 100052, guid: ea6104d4c4d175043b9e0c1193de32fa, type: 2}
   level: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:

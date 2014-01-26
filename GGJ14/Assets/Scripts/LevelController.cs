@@ -28,6 +28,8 @@ public class LevelController : MonoBehaviour
 
     Vector3 playerStartPosition = new Vector3(0, 2);
 
+    bool credits = false;
+
     // Use this for initialization
     void Start ()
     {
@@ -81,7 +83,9 @@ public class LevelController : MonoBehaviour
                 }
                 else
                 {
-                    //win condition
+                    Camera.main.GetComponent<CameraFollow>().enabled = false;
+                    credits = true;
+
                 }
 
             }
@@ -89,6 +93,14 @@ public class LevelController : MonoBehaviour
                 currentLevelGenerator.ResetLevel();
                 player.transform.localPosition = playerStartPosition;
             }
+        }
+    }
+
+    void OnGUI()
+    {
+        if (credits) {
+            GUI.Label(new Rect(Screen.width/2 - 150, 200, 300, 300), "END");
+
         }
     }
 }

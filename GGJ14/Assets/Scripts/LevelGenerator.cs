@@ -9,6 +9,7 @@ public class LevelGenerator : MonoBehaviour
     public GameObject wallPrefab;
     public int size = 40;
     public GameObject endTriggerPrefab;
+    public GameObject finalBloomPrefab;
     public TextAsset level;
     List<FloorDrop> floor;
 
@@ -36,6 +37,10 @@ public class LevelGenerator : MonoBehaviour
                 }
                 if (data.Length > 1 && data[1] == "e"){
                     GameObject endTrigger = Instantiate(endTriggerPrefab, floor[floor.Count-1].transform.position, Quaternion.identity) as GameObject;
+                    endTrigger.transform.parent = transform;
+                }
+                if (data.Length > 1 && data[1] == "f"){
+                    GameObject endTrigger = Instantiate(finalBloomPrefab, floor[floor.Count-1].transform.position, Quaternion.identity) as GameObject;
                     endTrigger.transform.parent = transform;
                 }
             }
