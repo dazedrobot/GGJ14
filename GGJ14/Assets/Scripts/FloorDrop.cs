@@ -7,9 +7,25 @@ public class FloorDrop : MonoBehaviour {
 
     private float delay = 0.5f;
 
+    Vector3 initialPosition;
+
+    void Start()
+    {
+        initialPosition = transform.localPosition;
+    }
+
     public void TriggerDrop()
     {
-        StartCoroutine (Drop ());
+        StartCoroutine ("Drop");
+    }
+
+    public void Reset ()
+    {
+        StopCoroutine ("Drop");
+        rigidbody2D.isKinematic = true;
+        rigidbody2D.fixedAngle = true;
+        transform.localPosition = initialPosition;
+        transform.localRotation = Quaternion.identity;
     }
 
     IEnumerator Drop()

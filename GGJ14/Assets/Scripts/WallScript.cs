@@ -11,9 +11,12 @@ public class WallScript : MonoBehaviour {
 
     float speed = 4;
 
+    BoxCollider2D[] colliders;
+
     void Start()
     {
         SetPosition (targetHeight);
+        colliders = GetComponentsInChildren<BoxCollider2D> ();
     }
 
     void Update()
@@ -36,6 +39,16 @@ public class WallScript : MonoBehaviour {
         }
 
     }
+
+    public void Reset()
+    {
+        foreach (BoxCollider2D col in colliders) {
+            col.enabled = true;
+        }
+        renderer.enabled = true;
+
+        downOverride = false;
+    }
     
     void SetPosition (float n)
     {
@@ -45,7 +58,11 @@ public class WallScript : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other){
         if (other.tag == "Hammer" && !transform.parent.GetComponentInChildren<Obsticle>().armour) {     
-            Destroy(this.gameObject);
+            foreach(BoxCollider2D col in colliders)
+            {
+                col.enabled = false;
+            }
+            renderer.enabled = false;
         }
     }
 }

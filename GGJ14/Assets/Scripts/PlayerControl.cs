@@ -42,9 +42,7 @@ public class PlayerControl : MonoBehaviour
     private SpriteRenderer[] hammerSprites;
     private SpriteRenderer coin;
     private SpriteRenderer[] allSprites;
-    public bool canMove = false;
     public bool stateChange = false;
-    public int levelCount = 1;
 
     void Awake ()
     {
@@ -58,21 +56,12 @@ public class PlayerControl : MonoBehaviour
 
         coin = transform.Find ("Coin").GetComponent<SpriteRenderer> ();
 
-        StartCoroutine (WaitFunction (2));
-
-
     }
 
-    IEnumerator WaitFunction (float delay)
-    {
 
-        yield return new WaitForSeconds (delay);
-        canMove = true;
-    }
 
     void Update ()
     {
-        if (canMove) {
             // The player is grounded if a linecast to the groundcheck position hits anything on the ground layer.
             grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));  
 
@@ -107,20 +96,25 @@ public class PlayerControl : MonoBehaviour
                 stateChange = true;
                 
             }
-        }
+
     }
 
     void FixedUpdate ()
     {
-        if (canMove) {
             // Cache the horizontal input.
             float h = Input.GetAxis ("Horizontal");
-
+            if(state == State.Disappear){
+                maxSpeed = 1f; 
+            }
+            else{
+                maxSpeed = 5f;
+            }
             // The Speed animator parameter is set to the absolute value of the horizontal input.
             //anim.SetFloat("Speed", Mathf.Abs(h));
 
             // If the player is changing direction (h has a different sign to velocity.x) or hasn't reached maxSpeed yet...
             if (h * rigidbody2D.velocity.x < maxSpeed)
+
             // ... add a force to the player.
                 rigidbody2D.AddForce (Vector2.right * h * moveForce);
 
@@ -159,7 +153,7 @@ public class PlayerControl : MonoBehaviour
             case State.Pay:
                 break;
             }
-        }
+
     }
     
     public IEnumerator Smash ()
@@ -189,31 +183,9 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    void Reset (int levelCounter)
+    public void Reset ()
     {
         stateChange = false;
-        levelCount = levelCounter;
-    }
-
-    void OnGUI ()
-    {
-		GUI.color = Color.white;
-		GUIStyle instructionStyle = new GUIStyle ();
-		instructionStyle.fontSize = 24; 
-        if (!stateChange) {
-            if (levelCount == 0)
-                GUI.Label (new Rect (Screen.width * 0.4f, Screen.height * 0.25f, 200, 100), "Press J to Jump", instructionStyle);
-            if (levelCount == 2)
-				GUI.Label (new Rect (Screen.width * 0.4f, Screen.height * 0.25f, 200, 100), "Press H to Smash", instructionStyle);
-            if (levelCount == 3)
-				GUI.Label (new Rect (Screen.width * 0.4f, Screen.height * 0.25f, 200, 100), "Press K to Insert Coin", instructionStyle);
-            if (levelCount == 4)
-				GUI.Label (new Rect (Screen.width * 0.4f, Screen.height * 0.25f, 200, 100), "Press L to Disappear", instructionStyle);
-            if (levelCount == 5)
-				GUI.Label (new Rect (Screen.width * 0.4f, Screen.height * 0.15f, 200, 100), "Press J to Jump \nPress H to Smash \nPress K to Insert Coin \nPress L to Disappear", instructionStyle);
-
-        
-        }
     }
     
     void Flip ()

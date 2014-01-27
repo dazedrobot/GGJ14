@@ -8,6 +8,8 @@ public class LevelGenerator : MonoBehaviour
     public GameObject floorPrefab;
     public GameObject wallPrefab;
     public int size = 40;
+    public GameObject endTriggerPrefab;
+    public GameObject finalBloomPrefab;
     public TextAsset level;
     List<FloorDrop> floor;
 
@@ -18,16 +20,28 @@ public class LevelGenerator : MonoBehaviour
         if (level) {
             string[] levelSections = level.text.Split (',');
 
-            bool first = true;
+            for (int i=0; i < 5; i++)
+            {
+                AddSection (floorPrefab, 0);
+            }
+
             foreach (string s in levelSections) {
-                if (!first)
-                    AddSection (floorPrefab, 0);
-                else
-                    first = false;
-                if (s == "0") {
+
+                string[] data = s.Split(':');
+
+                AddSection (floorPrefab, 0);
+                if (data[0] == "0") {
                     AddSection (floorPrefab, 0);
                 } else {
-                    AddSection (wallPrefab, int.Parse (s));
+                    AddSection (wallPrefab, int.Parse (data[0]));
+                }
+                if (data.Length > 1 && data[1] == "e"){
+                    GameObject endTrigger = Instantiate(endTriggerPrefab, floor[floor.Count-1].transform.position, Quaternion.identity) as GameObject;
+                    endTrigger.transform.parent = transform;
+                }
+                if (data.Length > 1 && data[1] == "f"){
+                    GameObject endTrigger = Instantiate(finalBloomPrefab, floor[floor.Count-1].transform.position, Quaternion.identity) as GameObject;
+                    endTrigger.transform.parent = transform;
                 }
             }
         } else {
@@ -37,12 +51,21 @@ public class LevelGenerator : MonoBehaviour
                 AddSection (section);
             }
         }
-        StartCoroutine (StartDropDelayed ());
+        floor [0].TriggerDrop ();
+    }
+
+    public void ResetLevel()
+    {
+        BroadcastMessage ("Reset");
+//        foreach (FloorDrop section in floor) {
+//            section.Reset();
+//        }
+        floor [0].TriggerDrop ();
     }
 
     void AddSection (GameObject prefab, int value)
     {
-        GameObject go = GameObject.Instantiate (prefab, new Vector3 (floor.Count * 3, 0, 0), Quaternion.identity) as GameObject;
+        GameObject go = GameObject.Instantiate (prefab, new Vector3 ((floor.Count - 5) * 3, 0, 0), Quaternion.identity) as GameObject;
         FloorDrop section = go.GetComponent<FloorDrop> ();
         AddSection (section);
 
@@ -67,11 +90,5 @@ public class LevelGenerator : MonoBehaviour
     public void CleanUp()
     {
         transform.localPosition = Vector3.up * -200;
-    }
-
-    IEnumerator StartDropDelayed ()
-    {
-        yield return new WaitForSeconds (4);
-        floor [0].TriggerDrop ();
     }
 }
